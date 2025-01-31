@@ -1,5 +1,4 @@
-# Mocha, Chai, and Sinon Testing Setup
-
+# Mocha, Chai, and Sinon for Testing
 This repository is configured to use **Mocha**, **Chai**, and **Sinon** for unit and integration testing. These tools allow for writing effective and maintainable tests that ensure the quality and reliability of your code.
 
 ## Why Use Mocha, Chai, and Sinon?
