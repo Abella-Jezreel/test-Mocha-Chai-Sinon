@@ -27,4 +27,29 @@ describe("Auth Controller", function () {
 
     User.findOne.restore();
   });
+
+  it("should send a response with a valid user status for an existing user", async function () {
+    sinon.stub(User, "findById");
+    User.findById.resolves({ status: "I am new!" });
+
+    const req = { userId: "5f447132b4f3f6a7b8e9f2e7" };
+    const res = {
+      statusCode: 500,
+      userStatus: null,
+      status: function (code) {
+        this.statusCode = code;
+        return this;
+      },
+      json: function (data) {
+        this.userStatus = data.status;
+      },
+    };
+
+    await authController.getUserStatus(req, res, () => {});
+
+    expect(res.statusCode).to.be.equal(200);
+    expect(res.userStatus).to.be.equal("I am new!");
+
+    User.findById.restore();
+  });
 });
