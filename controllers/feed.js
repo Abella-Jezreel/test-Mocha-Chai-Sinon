@@ -111,19 +111,19 @@ exports.updatePost = async (req, res, next) => {
       error.statusCode = 404;
       throw error;
     }
-    if (post.creator.toString() !== req.userId) {
+    if (post.creator.toString() !== req.userId) { // Ensure req.userId is set correctly in your tests
       const error = new Error('Not authorized!');
       error.statusCode = 403;
       throw error;
     }
     if (imageUrl !== post.imageUrl) {
-      clearImage(post.imageUrl);
+      clearImage(post.imageUrl); // Ensure clearImage function is correctly mocked in your tests
     }
     post.title = title;
     post.imageUrl = imageUrl;
     post.content = content;
     const result = await post.save();
-    res.status(200).json({ message: 'Post updated!', post: result });
+    res.status(200).json({ message: 'Post updated!', post: result }); // Ensure this line is correct
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
@@ -131,6 +131,7 @@ exports.updatePost = async (req, res, next) => {
     next(err);
   }
 };
+
 
 exports.deletePost = async (req, res, next) => {
   const postId = req.params.postId;
